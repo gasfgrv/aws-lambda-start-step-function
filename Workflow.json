@@ -2,7 +2,7 @@
   "Comment": "Exemplo de ter um trigger a partir de uma fila SQS+Lambda",
   "StartAt": "Solicita H9",
   "States": {
-    "Solicita H9": {
+    "Solicita Dados": {
       "Type": "Task",
       "Resource": "arn:aws:states:::lambda:invoke",
       "Parameters": {
