@@ -1,0 +1,25 @@
+services:
+  localstack:
+    image: localstack/localstack:4.14.0
+    container_name: localstack
+    ports:
+      - "4566:4566"
+      - "4510-4559:4510-4559"
+    environment:
+      - DEBUG=1
+      - AWS_DEFAULT_REGION=us-east-1
+      - SERVICES=sqs,lambda,stepfunctions,dynamodb,iam,logs
+      - LAMBDA_EXECUTOR=docker
+      - LAMBDA_REMOTE_DOCKER=false
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "../lambdas:/opt/code/lambdas"
+      - "../stepfunctions:/opt/code/stepfunctions"
+      - "./init:/etc/localstack/init/ready.d"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - localstack-net
+
+networks:
+  localstack-net:
+    driver: bridge
